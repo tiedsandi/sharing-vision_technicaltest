@@ -8,10 +8,10 @@ import (
 )
 
 type ArticleRequest struct {
-	Title    string `json:"title" binding:"required"`
-	Content  string `json:"content" binding:"required"`
-	Category string `json:"category" binding:"required"`
-	Status   string `json:"status" binding:"required"`
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	Category string `json:"category"`
+	Status   string `json:"status"`
 }
 
 func CreateArticleService(input ArticleRequest) (string, error) {
@@ -64,10 +64,18 @@ func UpdateArticleService(id int, input ArticleRequest) error {
 		return errors.New("article not found")
 	}
 
-	article.Title = input.Title
-	article.Content = input.Content
-	article.Category = input.Category
-	article.Status = input.Status
+	if input.Title != "" {
+		article.Title = input.Title
+	}
+	if input.Content != "" {
+		article.Content = input.Content
+	}
+	if input.Category != "" {
+		article.Category = input.Category
+	}
+	if input.Status != "" {
+		article.Status = input.Status
+	}
 
 	if err := config.DB.Save(&article).Error; err != nil {
 		return err

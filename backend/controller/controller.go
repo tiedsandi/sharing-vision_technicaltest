@@ -20,7 +20,7 @@ func CreateArticle(c *gin.Context) {
 		return
 	}
 
-	if err := helpers.ValidateArticleInput(input); err != nil {
+	if err := helpers.ValidateArticleInput(input, false); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Validation failed",
 			"details": err.Error(),
@@ -102,7 +102,7 @@ func EditArticle(c *gin.Context) {
 		return
 	}
 
-	if err := helpers.ValidateArticleInput(input); err != nil {
+	if err := helpers.ValidateArticleInput(input, true); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Validation failed", "details": err.Error()})
 		return
 	}
