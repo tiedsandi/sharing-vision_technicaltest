@@ -4,13 +4,39 @@ Content-Type: application/json
 
 {
   "title": "Ini adalah judul artikel yang sangat menarik dan panjang",
-  "content": "Ini adalah isi artikel yang sangat panjang dan mendalam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut sapien ut lorem blandit pharetra. Integer sit amet nunc nec velit gravida interdum. Pellentesque a ligula quis est vulputate pharetra. (panjangkan hingga 200+ karakter sesuai validasi)",
+  "content": "Ini adalah isi artikel yang sangat panjang dan mendalam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut sapien ut lorem blandit pharetra. Integer sit amet nunc nec velit gravida interdum. Pellentesque a ligula quis est vulputate pharetra. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam at augue vel lorem varius sollicitudin at at velit.",
   "category": "teknologi",
   "status": "publish"
 }
 
 ###
 
-### Get All Articles (dengan paging)
-GET http://localhost:8080/article/10/0
+### Get All Articles with Pagination
+GET http://localhost:8080/article?limit=10&offset=0
 Accept: application/json
+
+###
+
+### Get Article by ID
+GET http://localhost:8080/article/1
+Accept: application/json
+
+###
+
+### Update Article
+PUT http://localhost:8080/article/1
+Content-Type: application/json
+
+{
+  "title": "Judul artikel yang telah diperbarui dan panjang",
+  "content": "Ini adalah versi terbaru dari isi artikel yang panjang dan memenuhi minimal 200 karakter. Kami menambahkan lebih banyak konten untuk memastikan bahwa validasi tetap terpenuhi. Artikel ini sekarang lebih kaya informasi dan lebih relevan bagi pembaca.",
+  "category": "update-teknologi",
+  "status": "draft"
+}
+
+###
+
+### Delete Article
+DELETE http://localhost:8080/article/1
+Accept: application/json
+
