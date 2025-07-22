@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"errors"
+	"strings"
 
 	"github.com/tiedsandi/sharing-vision_technicaltest/services"
 )
@@ -17,6 +18,17 @@ func ValidateArticleInput(input services.ArticleRequest, isUpdate bool) error {
 		if input.Category == "" {
 			return errors.New("category is required")
 		}
+	}
+
+	input.Status = strings.ToLower(strings.TrimSpace(input.Status))
+	validStatuses := map[string]bool{
+		"publish": true,
+		"draft":   true,
+		"trash":   true,
+	}
+
+	if !validStatuses[input.Status] {
+		return errors.New("status must be one of: publish, draft, or trash")
 	}
 	return nil
 }
