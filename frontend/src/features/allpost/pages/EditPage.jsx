@@ -9,7 +9,7 @@ export default function EditPage() {
     <>
       <div className="flex items-center gap-4 mb-6">
         <Link
-          to="/"
+          to="/article"
           className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
         >
           Back

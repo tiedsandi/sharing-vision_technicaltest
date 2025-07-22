@@ -8,6 +8,7 @@ import {
 } from "./features/allpost";
 
 import MainLayout from "./components/MainLayout";
+import Preview from "./features/preview/PreviewPage";
 import { createBrowserRouter } from "react-router";
 
 const Router = createBrowserRouter([
@@ -31,6 +32,10 @@ const Router = createBrowserRouter([
             action: updateAction,
           },
         ],
+      },
+      {
+        index: true,
+        element: <Preview />,
       },
     ],
   },

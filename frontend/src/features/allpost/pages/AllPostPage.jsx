@@ -37,17 +37,27 @@ export default function AllPostPage() {
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this article?"
+      activeTab === "trash"
+        ? "Are you sure you want to permanently delete this article?"
+        : "Are you sure you want to move this article to trash?"
     );
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:8080/article/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "trash" }),
-      });
+      const url = `http://localhost:8080/article/${id}`;
+      const options =
+        activeTab === "trash"
+          ? {
+              method: "DELETE",
+              headers: { Accept: "application/json" },
+            }
+          : {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ status: "trash" }),
+            };
 
+      const res = await fetch(url, options);
       const result = await res.json();
 
       if (!res.ok) {
@@ -55,7 +65,6 @@ export default function AllPostPage() {
       }
 
       fetchArticles();
-      alert("Article moved to trash");
     } catch (error) {
       console.error(error);
       alert(error.message || "Something went wrong");
