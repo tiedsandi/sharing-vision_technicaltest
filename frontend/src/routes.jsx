@@ -1,32 +1,15 @@
-import {
-  ArticleLoader,
-  DraftPage,
-  PublishedPage,
-  TrashPage,
-} from "./features/dashboard";
-
-import DashboardLayout from "./components/DashboardLayout";
+import { AllPostPage } from "./features/allpost";
+import MainLayout from "./components/MainLayout";
 import { createBrowserRouter } from "react-router";
 
 const Router = createBrowserRouter([
   {
     path: "/",
-    element: <DashboardLayout />,
+    element: <MainLayout />,
     children: [
       {
         index: true,
-        element: <PublishedPage />,
-        loader: ArticleLoader,
-      },
-      {
-        path: "draft",
-        element: <DraftPage />,
-        loader: ArticleLoader,
-      },
-      {
-        path: "trash",
-        element: <TrashPage />,
-        loader: ArticleLoader,
+        element: <AllPostPage />,
       },
     ],
   },
