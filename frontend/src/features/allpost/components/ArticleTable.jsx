@@ -1,6 +1,8 @@
 import { Pencil, Trash } from "lucide-react";
 
-export default function ArticleTable({ articles = [] }) {
+import { Link } from "react-router";
+
+export default function ArticleTable({ articles = [], onDelete }) {
   return (
     <div className="overflow-x-auto rounded-xl border border-stone-700 bg-white">
       <table className="min-w-full text-sm text-stone-800">
@@ -21,15 +23,17 @@ export default function ArticleTable({ articles = [] }) {
               <td className="px-4 py-3 capitalize">{article.category}</td>
               <td className="px-4 py-3">
                 <div className="flex items-center gap-3 text-stone-600">
-                  <button
+                  <Link
+                    to={`edit/${article.id}`}
                     className="hover:text-blue-600 transition"
                     title="Edit"
                   >
                     <Pencil size={18} />
-                  </button>
+                  </Link>
                   <button
-                    className="hover:text-red-600 transition"
+                    className="hover:text-red-600 transition cursor-pointer"
                     title="Delete"
+                    onClick={() => onDelete(article.id)}
                   >
                     <Trash size={18} />
                   </button>

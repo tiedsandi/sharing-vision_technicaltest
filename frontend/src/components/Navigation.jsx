@@ -6,7 +6,7 @@ export default function Navigation() {
   return (
     <nav className="flex gap-4">
       <NavLink
-        to="/preview"
+        to="/"
         className={({ isActive }) =>
           `flex items-center gap-2 px-4 py-2  rounded-lg text-sm font-medium transition  ${
             isActive
@@ -20,7 +20,7 @@ export default function Navigation() {
       </NavLink>
 
       <NavLink
-        to="/"
+        to="/article"
         end
         className={({ isActive }) =>
           `flex items-center gap-2 px-4 py-2  rounded-lg text-sm font-medium transition ${

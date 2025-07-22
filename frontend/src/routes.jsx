@@ -1,4 +1,12 @@
-import { AllPostPage } from "./features/allpost";
+import {
+  AllPostPage,
+  CreatePage,
+  EditPage,
+  articleLoader,
+  createAction,
+  updateAction,
+} from "./features/allpost";
+
 import MainLayout from "./components/MainLayout";
 import { createBrowserRouter } from "react-router";
 
@@ -8,8 +16,21 @@ const Router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        index: true,
-        element: <AllPostPage />,
+        path: "article",
+        children: [
+          { index: true, element: <AllPostPage /> },
+          {
+            path: "create",
+            element: <CreatePage />,
+            action: createAction,
+          },
+          {
+            path: "edit/:id",
+            element: <EditPage />,
+            loader: articleLoader,
+            action: updateAction,
+          },
+        ],
       },
     ],
   },
