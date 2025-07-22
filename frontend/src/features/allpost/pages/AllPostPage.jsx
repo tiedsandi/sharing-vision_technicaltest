@@ -4,34 +4,41 @@ import { useCallback, useEffect, useState } from "react";
 import ArticleTable from "../components/ArticleTable";
 import ButtonTabs from "../components/ButtonTabs";
 import EmptyOrLoading from "../components/EmptyOrLoading";
+import Pagination from "../../../components/Pagination";
 
 export default function AllPostPage() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [offset, setOffset] = useState(0);
+  const [total, setTotal] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
+
   const activeTab = searchParams.get("tab") || "publish";
+  const limit = 10;
 
   const fetchArticles = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `http://localhost:8080/article?limit=10&offset=0&status=${activeTab}`
+      const res = await fetch(
+        `http://localhost:8080/article?limit=${limit}&offset=${offset}&status=${activeTab}`
       );
-      const result = await response.json();
+      const result = await res.json();
       setArticles(result.data || []);
+      setTotal(result.total || 0);
     } catch (error) {
       console.error("Failed to fetch articles:", error);
       setArticles([]);
     } finally {
       setLoading(false);
     }
-  }, [activeTab]);
+  }, [activeTab, offset]);
 
   useEffect(() => {
     fetchArticles();
   }, [fetchArticles]);
 
   const handleTabChange = (tab) => {
+    setOffset(0); // reset ke halaman pertama saat ganti tab
     setSearchParams({ tab });
   };
 
@@ -71,6 +78,9 @@ export default function AllPostPage() {
     }
   };
 
+  const currentPage = Math.floor(offset / limit) + 1;
+  const totalPages = Math.ceil(total / limit);
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -93,6 +103,14 @@ export default function AllPostPage() {
 
       {!loading && articles.length > 0 && (
         <ArticleTable articles={articles} onDelete={handleDelete} />
+      )}
+
+      {total > limit && (
+        <Pagination
+          page={currentPage}
+          totalPages={totalPages}
+          onPageChange={(newPage) => setOffset((newPage - 1) * limit)}
+        />
       )}
     </div>
   );

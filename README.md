@@ -11,13 +11,13 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi secara lokal:
 ### 1. Clone repository
 
 ```bash
-git clone https://github.com/username/sharing-vision.git
+git clone https://github.com/tiedsandi/sharing-vision_technicaltest.git
 ```
 
 ### 2. Masuk ke direktori project
 
 ```bash
-cd sharing-vision
+cd sharing-vision_technicaltest
 ```
 
 ### 3. Jalankan backend (terminal pertama)
