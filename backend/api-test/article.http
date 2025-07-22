@@ -12,7 +12,7 @@ Content-Type: application/json
 ###
 
 ### Get All Articles with Pagination
-GET http://localhost:8080/article?limit=10&offset=0
+GET http://localhost:8080/article?limit=10&offset=0&status="draft"
 Accept: application/json
 
 ###

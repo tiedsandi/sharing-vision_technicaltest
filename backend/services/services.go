@@ -29,17 +29,25 @@ func CreateArticleService(input ArticleRequest) (string, error) {
 	return "success create", nil
 }
 
-func GetArticlesService(limit int, offset int) ([]models.Article, error) {
+func GetArticlesService(limit int, offset int, status string) ([]models.Article, int64, error) {
 	var articles []models.Article
+	var total int64
 
-	if err := config.DB.
-		Order("created_date DESC").
-		Limit(limit).Offset(offset).
-		Find(&articles).Error; err != nil {
-		return nil, err
+	query := config.DB.Model(&models.Article{}).Where("status = ?", status)
+
+	if err := query.Count(&total).Error; err != nil {
+		return nil, 0, err
 	}
 
-	return articles, nil
+	if err := query.
+		Order("created_date DESC").
+		Limit(limit).
+		Offset(offset).
+		Find(&articles).Error; err != nil {
+		return nil, 0, err
+	}
+
+	return articles, total, nil
 }
 
 func GetArticleService(id int) (*models.Article, error) {

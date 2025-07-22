@@ -45,6 +45,7 @@ func CreateArticle(c *gin.Context) {
 func GetArticles(c *gin.Context) {
 	limitParam := c.DefaultQuery("limit", "10")
 	offsetParam := c.DefaultQuery("offset", "0")
+	status := c.DefaultQuery("status", "publish")
 
 	limit, err := strconv.Atoi(limitParam)
 	if err != nil || limit <= 0 {
@@ -58,13 +59,16 @@ func GetArticles(c *gin.Context) {
 		return
 	}
 
-	articles, err := services.GetArticlesService(limit, offset)
+	articles, total, err := services.GetArticlesService(limit, offset, status)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, articles)
+	c.JSON(http.StatusOK, gin.H{
+		"data":  articles,
+		"total": total,
+	})
 }
 
 func GetArticle(c *gin.Context) {
