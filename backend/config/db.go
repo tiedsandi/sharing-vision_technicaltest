@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 
+	models "github.com/tiedsandi/sharing-vision_technicaltest/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -22,8 +23,7 @@ func InitDB() {
 }
 
 func Migration() {
-	// DB.AutoMigrate(
-	// 	&models.Department{},
-	// )
-
+	DB.AutoMigrate(
+		&models.Article{},
+	)
 }

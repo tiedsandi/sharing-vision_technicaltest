@@ -1,0 +1,16 @@
+### Create Article
+POST http://localhost:8080/article/
+Content-Type: application/json
+
+{
+  "title": "Ini adalah judul artikel yang sangat menarik dan panjang",
+  "content": "Ini adalah isi artikel yang sangat panjang dan mendalam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut sapien ut lorem blandit pharetra. Integer sit amet nunc nec velit gravida interdum. Pellentesque a ligula quis est vulputate pharetra. (panjangkan hingga 200+ karakter sesuai validasi)",
+  "category": "teknologi",
+  "status": "publish"
+}
+
+###
+
+### Get All Articles (dengan paging)
+GET http://localhost:8080/article/10/0
+Accept: application/json
